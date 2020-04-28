@@ -1,49 +1,30 @@
-﻿<!DOCTYPE HTML>
-<html>
-<head>
-    <style>
-        .droptarget {
-            float: left;
-            width: 100px;
-            height: 35px;
-            margin: 15px;
-            padding: 10px;
-            border: 1px solid #aaaaaa;
-        }
-    </style>
-</head>
+﻿<html>
 <body>
-
-    <p>Drag the p element back and forth between the two rectangles:</p>
-
-    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p ondragstart="dragStart(event)" draggable="true" id="dragtarget">Drag me!</p>
-    </div>
-
-    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-    <p style="clear:both;"><strong>Note:</strong> drag events are not supported in Internet Explorer 8 and earlier versions or Safari 5.1 and earlier versions.</p>
-
-    <p id="demo"></p>
-
     <script>
-        function dragStart(event) {
-            event.dataTransfer.setData("Text", event.target.id);
-            document.getElementById("demo").innerHTML = "Started to drag the p element";
-        }
+        function CreateHtml() {
+            var field1 = $("#field1").val();
+            var field2 = $("#field2").val();
+            var fieldn = $("#fieldn").val();
 
-        function allowDrop(event) {
-            event.preventDefault();
-        }
+            var form = $("#myForm").clone();
+            $(form).find("#field1").val(field1);
+            $(form).find("#field2").val(field2);
+            $(form).find("#fieldn").val(fieldn);
 
-        function drop(event) {
-            event.preventDefault();
-            var data = event.dataTransfer.getData("Text");
-            event.target.appendChild(document.getElementById(data));
-            document.getElementById("demo").innerHTML = "The p element was dropped";
+            $('#btn_download').attr('download', 'sampleFile.html');
+            $('#btn_download').attr('href', 'data:text/html,' + form);
+            $('#btn_download').show();
         }
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <div>
+        <input placeholder="field1" id="field1" type="text" />
+        <br />
+        <input placeholder="field2" id="field2" type="text" />
+        <br />
+        <button type="button" onclick="CreateHtml();">Submit</button>
+        <br>
+        <a href="" id="btn_download" hidden>Download</a>
+    </div>
 </body>
 </html>
-
